@@ -32,3 +32,21 @@ def index_post():
 
     # Create the body of the request with the text to be translated
     body = [{ 'text': original_text }]
+
+    # Make the call using post
+    translator_request = requests.post(constructed_url, headers=headers, json=body)
+    
+    # Retrieve the JSON response
+    translator_response = translator_request.json()
+    
+    # Retrieve the translation
+    translated_text = translator_response[0]['translations'][0]['text']
+
+    # Call render template, passing the translated text,
+    # original text, and target language to the template
+    return render_template(
+        'results.html',
+        translated_text=translated_text,
+        original_text=original_text,
+        target_language=target_language
+    )
