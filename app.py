@@ -29,6 +29,14 @@ def index_post():
     
     # Create the full URL
     constructed_url = endpoint + path + target_language_parameter
+    
+    # Set up the header information, which includes our subscription key
+    headers = {
+        'Ocp-Apim-Subscription-Key': key,
+        'Ocp-Apim-Subscription-Region': location,
+        'Content-type': 'application/json',
+        'X-ClientTraceId': str(uuid.uuid4())
+    }
 
     # Create the body of the request with the text to be translated
     body = [{ 'text': original_text }]
